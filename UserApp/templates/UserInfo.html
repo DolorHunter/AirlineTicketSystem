@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserInfo</title>
+    <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+    </style>
+</head>
+<body>
+<h1 align="center">用户信息</h1>
+
+<table style="width:100%">
+    <tr>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>邮箱</th>
+    </tr>
+    {% for userinfo_item in all_items %}
+    <tr>
+        <th>{{ userinfo_item.username }}</th>
+        <th>{{ userinfo_item.password }}</th>
+        <th>{{ userinfo_item.email }}</th>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
