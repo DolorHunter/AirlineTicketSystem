@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>航空机票销售系统</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body style="background-color: #f1f1f1">
+<nav class="nav navbar-inverse">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../ticketCenter/">航空机票销售系统</a>
+        </div>
+        <!-- Items -->
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="../ticketCenter/">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 购票
+                </a>
+            </li>
+            <li>
+                <a href="../userInfo/">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li>
+                {% block login_display %} <!--在用户登录之后改变这一块的显示内容-->
+                    <a href="../login/">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp; 登录
+                    </a>
+                {% endblock %}
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>
