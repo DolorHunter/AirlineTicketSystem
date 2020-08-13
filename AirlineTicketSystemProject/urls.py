@@ -23,5 +23,7 @@ urlpatterns = [
     path('userInfo/', user_info),
     path('addUser/', add_user),
     path('deleteUser/<int:user_id>', delete_user),
+    path('updateUser/<int:user_id>', update_user),
+    path('searchUser/', search_user),
     path('ticketInfo/', ticket_info),
 ]

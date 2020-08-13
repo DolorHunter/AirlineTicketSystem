@@ -22,27 +22,40 @@
         <th>用户名</th>
         <th>密码</th>
         <th>邮箱</th>
-        <th>删除</th>
+        <th colspan="2"></th>
+    </tr>
+    <tr>
+    <form action="/searchUser/" method="post">{% csrf_token %}
+        <label>
+            <th><input name="search_username"></th>
+            <th><input name="search_password"></th>
+            <th><input name="search_email"></th>
+            <th colspan="2"><input type="submit" value="查找"/></th>
+        </label>
+    </form>
     </tr>
     {% for userInfo_item in all_items %}
     <tr>
-        <th>{{ userInfo_item.username }}</th>
-        <th>{{ userInfo_item.password }}</th>
-        <th>{{ userInfo_item.email }}</th>
-        <th>
-            <form action="/deleteUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
-                <input type="submit" value="删除">
-            </form>
-        </th>
+    <form action="/updateUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
+        <label>
+            <th><input name="update_username_{{userInfo_item.id}}" value="{{ userInfo_item.username }}"/></th>
+            <th><input name="update_password_{{userInfo_item.id}}" value="{{ userInfo_item.password }}"/></th>
+            <th><input name="update_email_{{userInfo_item.id}}" value="{{ userInfo_item.email }}"/></th>
+            <th><input type="submit" value="修改"></th>
+        </label>
+    </form>
+    <form action="/deleteUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
+        <th><input type="submit" value="删除"></th>
+    </form>
     </tr>
     {% endfor %}
     <tr>
     <form action="/addUser/" method="post">{% csrf_token %}
         <label>
-            <th><input type="text" name="username"/></th>
-            <th><input type="text" name="password"/></th>
-            <th><input type="text" name="email"/></th>
-            <th><input type="submit" name="Add" value="添加"/></th>
+            <th><input type="text" name="add_username"/></th>
+            <th><input type="text" name="add_password"/></th>
+            <th><input type="text" name="add_email"/></th>
+            <th colspan="2"><input type="submit" value="添加"/></th>
         </label>
     </form>
     </tr>
