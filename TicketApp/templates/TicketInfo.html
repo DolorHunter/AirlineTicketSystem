@@ -1,105 +1,56 @@
-{% block login_display %}
-    <a href="#">欢迎您 {{ username }} 先生/女士</a> <!--用#就不会跳转了-->
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket Info</title>
+    <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+    </style>
+</head>
+<body>
+<h1 align="center">航班信息</h1>
 
-{% block js %}
-    <script>
-        function confirm_info() {
-            var remain_seats = document.getElementById('remain_seats').innerHTML;
-            document.getElementById('book_btns').style.display = "none";
-            if (remain_seats > 0) {
-                document.getElementById('book_success').style.display = "block";
-            } else {
-                document.getElementById('book_failure').style.display = "block";
-            }
-        }
-        // ajax异步刷新页面
-        function PostData() {
-            $.ajax({
-                type: "POST",
-                url: "",
-                data: ""
-            });
-            return false; // 必须这一句，不然还会刷新页面
-        }
-    </script>
-{% endblock %}
+<table style="width:100%">
+    <tr>
+        <th>航班名称</th>
+        <th>航班日期</th>
+        <th>航班容量</th>
+        <th>已满容量</th>
+        <th>剩余容量</th>
+        <th>价格</th>
+        <th>总收入</th>
+        <th>出发城市</th>
+        <th>到达城市</th>
+        <th>出发机场</th>
+        <th>到达机场</th>
+        <th>出发时间</th>
+        <th>到达时间</th>
+    </tr>
+    {% for ticketinfo_item in all_items %}
+    <tr>
+        <th>{{ ticketinfo_item.flight_name }}</th>
+        <th>{{ ticketinfo_item.flight_date }}</th>
+        <th>{{ ticketinfo_item.flight_capacity }}</th>
+        <th>{{ ticketinfo_item.flight_booked_seats }}</th>
+        <th>{{ ticketinfo_item.flight_remained_seats }}</th>
+        <th>{{ ticketinfo_item.flight_price }}</th>
+        <th>{{ ticketinfo_item.flight_income }}</th>
+        <th>{{ ticketinfo_item.depart_city }}</th>
+        <th>{{ ticketinfo_item.arrive_city }}</th>
+        <th>{{ ticketinfo_item.depart_airport }}</th>
+        <th>{{ ticketinfo_item.arrive_airport }}</th>
+        <th>{{ ticketinfo_item.depart_time }}</th>
+        <th>{{ ticketinfo_item.arrive_time }}</th>
+    </tr>
+    {% endfor %}
+</table>
 
-{% block content %}
-<div class="container-fluid" style="margin-top: 20px">
-    <div class="alert" style="background-color: white;overflow: hidden"> <!--超出部分也是白色底-->
-        <h1>尊敬的旅客</h1>
-            <div id="info_body" style="margin-left: 50px;margin-right: 50px">
-                <p>
-                    您选择了 <strong style="font-size: large"> {{ flight.name }} </strong> 次航班，
-                    该航班还有余票
-                    <strong id="remain_seats"
-                            style="font-size: xx-large;color: #ff6600;font-style: italic">{{ flight.capacity }}</strong>
-                    张。
-                </p>
-                <table style="width:100%">
-                    <tr>
-                        <th>航班名称</th>
-                        <th>航班日期</th>
-                        <th>航班容量</th>
-                        <th>已满容量</th>
-                        <th>剩余容量</th>
-                        <th>价格</th>
-                        <th>出发城市</th>
-                        <th>到达城市</th>
-                        <th>出发机场</th>
-                        <th>到达机场</th>
-                        <th>出发时间</th>
-                        <th>到达时间</th>
-                        <th>购买</th>
-                    </tr>
-                    {% for ticketinfo_item in all_items %}
-                    <tr>
-                        <th>{{ ticketinfo_item.flight_name }}</th>
-                        <th>{{ ticketinfo_item.flight_date }}</th>
-                        <th>{{ ticketinfo_item.flight_capacity }}</th>
-                        <th>{{ ticketinfo_item.flight_booked_seats }}</th>
-                        <th>{{ ticketinfo_item.flight_remained_seats }}</th>
-                        <th>{{ ticketinfo_item.flight_price }}</th>
-                        <th>{{ ticketinfo_item.depart_city }}</th>
-                        <th>{{ ticketinfo_item.arrive_city }}</th>
-                        <th>{{ ticketinfo_item.depart_airport }}</th>
-                        <th>{{ ticketinfo_item.arrive_airport }}</th>
-                        <th>{{ ticketinfo_item.depart_time }}</th>
-                        <th>{{ ticketinfo_item.arrive_time }}</th>
-                        <th><form action="/purchaseTicket/{{ticketinfo_item.id}}"
-                              method="post">{% csrf_token %}
-                            <label>
-                                <input type="submit" value="购买"/>
-                            </label>
-                        </form></th>
-                    </tr>
-                    {% endfor %}
-                </table>
-
-                <div id="book_success" style="display: none">
-                    <p style="color: green;font-size: large;font-weight: bold">
-                        您已成功订购了此次航班，请保管好航班信息，祝您旅途愉快！
-                    </p>
-                </div>
-
-                <div id="book_failure" style="display: none">
-                    <p style="color: red;font-size: large;font-weight: bold">
-                        该航班已无余票，请选择其他航班，祝您旅途愉快！
-                    </p>
-                </div>
-
-                <div id="book_btns" align="right">
-                    <!--div内容右对齐-->
-                    <form onsubmit="return PostData()" method="post" style="display: inline">
-                        <input class="btn btn-primary" style="width: 80px" value="确认" type="submit"
-                               onclick="confirm_info()">
-                    </form>
-                    <a href="" class="btn btn-danger" style="width: 80px" onclick="history.back();">返回</a>
-                </div>
-            </div>
-    </div>
-</div>
-{% endblock  %}
 </body>
 </html>
