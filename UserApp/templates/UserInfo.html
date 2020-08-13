@@ -22,14 +22,30 @@
         <th>用户名</th>
         <th>密码</th>
         <th>邮箱</th>
+        <th>删除</th>
     </tr>
-    {% for userinfo_item in all_items %}
+    {% for userInfo_item in all_items %}
     <tr>
-        <th>{{ userinfo_item.username }}</th>
-        <th>{{ userinfo_item.password }}</th>
-        <th>{{ userinfo_item.email }}</th>
+        <th>{{ userInfo_item.username }}</th>
+        <th>{{ userInfo_item.password }}</th>
+        <th>{{ userInfo_item.email }}</th>
+        <th>
+            <form action="/deleteUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
+                <input type="submit" value="删除">
+            </form>
+        </th>
     </tr>
     {% endfor %}
+    <tr>
+    <form action="/addUser/" method="post">{% csrf_token %}
+        <label>
+            <th><input type="text" name="username"/></th>
+            <th><input type="text" name="password"/></th>
+            <th><input type="text" name="email"/></th>
+            <th><input type="submit" name="Add" value="添加"/></th>
+        </label>
+    </form>
+    </tr>
 </table>
 
 </body>
