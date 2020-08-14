@@ -14,3 +14,9 @@ class TicketItem(models.Model):
     arrive_airport = models.TextField()
     depart_time = models.TextField()
     arrive_time = models.TextField()
+
+
+class BookTicketItem(models.Model):
+    user_id = models.IntegerField()
+    ticket_id = models.IntegerField()
+    book_status = models.TextField()

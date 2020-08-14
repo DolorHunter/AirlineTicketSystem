@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>航班信息</title>
+    <title>我的票务</title>
     <style>
     body {
         background-image: url('/static/img/flight-bg.jpg');
@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-<h1 align="center">航班信息</h1>
+<h1 align="center">我的票务</h1>
 
 <table style="width:100%">
     <tr>
@@ -40,7 +40,7 @@
         <th>到达机场</th>
         <th>出发时间</th>
         <th>到达时间</th>
-        <th>购买</th>
+        <th>退票</th>
     </tr>
     <tr>
     <form action="/searchTicket/" method="post">{% csrf_token %}
@@ -61,25 +61,26 @@
         </label>
     </form>
     </tr>
-    {% for ticketInfo_item in all_items %}
+    {% for myTicketInfo_item in all_items %}
     <tr>
-        <th>{{ ticketInfo_item.flight_name }}</th>
-        <th>{{ ticketInfo_item.flight_date }}</th>
-        <th>{{ ticketInfo_item.flight_capacity }}</th>
-        <th>{{ ticketInfo_item.flight_booked_seats }}</th>
-        <th>{{ ticketInfo_item.flight_remained_seats }}</th>
-        <th>{{ ticketInfo_item.flight_price }}</th>
-        <th>{{ ticketInfo_item.depart_city }}</th>
-        <th>{{ ticketInfo_item.arrive_city }}</th>
-        <th>{{ ticketInfo_item.depart_airport }}</th>
-        <th>{{ ticketInfo_item.arrive_airport }}</th>
-        <th>{{ ticketInfo_item.depart_time }}</th>
-        <th>{{ ticketInfo_item.arrive_time }}</th>
-        <form action="/bookTicket/{{ticketInfo_item.id}}" method="post">{% csrf_token %}
-            <th><input type="submit" value="购买"></th>
+        <th>{{ myTicketInfo_item.flight_name }}</th>
+        <th>{{ myTicketInfo_item.flight_date }}</th>
+        <th>{{ myTicketInfo_item.flight_capacity }}</th>
+        <th>{{ myTicketInfo_item.flight_booked_seats }}</th>
+        <th>{{ myTicketInfo_item.flight_remained_seats }}</th>
+        <th>{{ myTicketInfo_item.flight_price }}</th>
+        <th>{{ myTicketInfo_item.depart_city }}</th>
+        <th>{{ myTicketInfo_item.arrive_city }}</th>
+        <th>{{ myTicketInfo_item.depart_airport }}</th>
+        <th>{{ myTicketInfo_item.arrive_airport }}</th>
+        <th>{{ myTicketInfo_item.depart_time }}</th>
+        <th>{{ myTicketInfo_item.arrive_time }}</th>
+        <form action="/refundTicket/{{myTicketInfo_item.id}}" method="post">{% csrf_token %}
+            <th><input type="submit" value="退票"></th>
         </form>
     </tr>
     {% endfor %}
 </table>
+
 </body>
 </html>

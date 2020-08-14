@@ -26,4 +26,7 @@ urlpatterns = [
     path('updateUser/<int:user_id>', update_user),
     path('searchUser/', search_user),
     path('ticketInfo/', ticket_info),
+    path('searchTicket/', search_ticket),
+    path('bookTicket/<int:ticket_id>', book_ticket),
+    path('myTicketInfo/', my_ticket_info),
 ]
