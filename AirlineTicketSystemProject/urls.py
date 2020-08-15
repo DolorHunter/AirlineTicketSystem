@@ -20,13 +20,16 @@ from TicketApp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', register, name='register'),
+    path('login/', loginPage, name='login'),
+    path('logout/', logoutUser, name='logout'),
     path('userInfo/', user_info),
     path('addUser/', add_user),
     path('deleteUser/<int:user_id>', delete_user),
     path('updateUser/<int:user_id>', update_user),
     path('searchUser/', search_user),
-    path('ticketInfo/', ticket_info),
+    path('ticketInfo/', ticket_info, name='ticketInfo'),
     path('searchTicket/', search_ticket),
     path('bookTicket/<int:ticket_id>', book_ticket),
-    path('myTicketInfo/', my_ticket_info),
+    path('myTicketInfo/', my_ticket_info, name='myTicketInfo'),
 ]

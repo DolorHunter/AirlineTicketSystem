@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import TicketItem, BookTicketItem
+from UserApp.models import UserItem
 
 
 def ticket_info(request):
@@ -50,16 +51,21 @@ def search_ticket(request):
 
 
 def book_ticket(request, ticket_id):
-    #BookTicketItem(user_id=user_id, ticket_id=ticket_id)
-    #return HttpResponseRedirect('/myTicket/')
-    pass
+    if not request.user.is_authenticated():
+        return render(request, '/admin/')
+    else:
+        ticket_item = TicketItem.objects.get(ticket_id=ticket_id)
+        if request.method == 'POST':
+            if ticket_item.flight_remained_seats > 0:
+                ticket_item.flight_booked_seats += 1
+                ticket_item.flight_remained_seats -= 1
+                ticket_item.save()
+                book_ticket_item = BookTicketItem(user=request.user, ticket=ticket_item, book_status='1')
+                book_ticket_item.save()
+        return HttpResponseRedirect('/myTicket/')
 
 
 def my_ticket_info(request, user_id):
-    '''
-    bookTicketItem = BookTicketItem.objects.get(user_id=user_id)
-    bookTicketItem.ticketitem_set.all()
-    all_ticket_items = TicketItem.objects.filter(id=ticket_id)
+    book_tick_item = BookTicketItem.objects.get(user_id=user_id)
+    all_ticket_items = BookTicketItem.objects.all()
     return render(request, 'MyTicketInfo.html', {'all_items': all_ticket_items})
-    '''
-    pass

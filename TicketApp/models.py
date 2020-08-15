@@ -1,12 +1,13 @@
 from django.db import models
+from UserApp.models import UserItem
 
 
 class TicketItem(models.Model):
     flight_name = models.TextField()
     flight_date = models.TextField()
-    flight_capacity = models.TextField()
-    flight_booked_seats = models.TextField()
-    flight_remained_seats = models.TextField()
+    flight_capacity = models.IntegerField()
+    flight_booked_seats = models.IntegerField()
+    flight_remained_seats = models.IntegerField()
     flight_price = models.TextField()
     depart_city = models.TextField()
     arrive_city = models.TextField()
@@ -17,6 +18,6 @@ class TicketItem(models.Model):
 
 
 class BookTicketItem(models.Model):
-    user_id = models.IntegerField()
-    ticket_id = models.IntegerField()
+    user = models.ManyToManyField(UserItem)
+    ticket = models.ManyToManyField(TicketItem)
     book_status = models.TextField()
