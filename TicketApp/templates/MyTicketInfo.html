@@ -46,18 +46,18 @@
     <tr>
     <form action="/searchTicket/" method="post">{% csrf_token %}
         <label>
-            <th><input name="search_flight_name" size="15"></th>
-            <th><input name="search_flight_date" size="10"></th>
-            <th><input name="search_flight_capacity" size="5"></th>
-            <th><input name="search_flight_booked_seats" size="5"></th>
-            <th><input name="search_flight_remained_seats" size="5"></th>
-            <th><input name="search_flight_price" size="5"></th>
-            <th><input name="search_depart_city" size="5"></th>
-            <th><input name="search_arrive_city" size="5"></th>
-            <th><input name="search_depart_airport" size="20"></th>
-            <th><input name="search_arrive_airport" size="20"></th>
-            <th><input name="search_depart_time" size="5"></th>
-            <th><input name="search_arrive_time" size="5"></th>
+            <th><input name="search_flight_name" size="10"></th>
+            <th><input name="search_flight_date" size="5"></th>
+            <th><input name="search_flight_capacity" size="3"></th>
+            <th><input name="search_flight_booked_seats" size="3"></th>
+            <th><input name="search_flight_remained_seats" size="3"></th>
+            <th><input name="search_flight_price" size="3"></th>
+            <th><input name="search_depart_city" size="3"></th>
+            <th><input name="search_arrive_city" size="3"></th>
+            <th><input name="search_depart_airport" size="10"></th>
+            <th><input name="search_arrive_airport" size="10"></th>
+            <th><input name="search_depart_time" size="3"></th>
+            <th><input name="search_arrive_time" size="3"></th>
             <th colspan="2"><input type="submit" value="查找"/></th>
         </label>
     </form>
@@ -82,6 +82,5 @@
     </tr>
     {% endfor %}
 </table>
-
 </body>
 </html>

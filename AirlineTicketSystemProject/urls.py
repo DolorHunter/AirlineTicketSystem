@@ -21,8 +21,8 @@ from TicketApp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', register, name='register'),
-    path('login/', loginPage, name='login'),
-    path('logout/', logoutUser, name='logout'),
+    path('login/', login_page, name='login'),
+    path('logout/', logout_user, name='logout'),
     path('userInfo/', user_info),
     path('addUser/', add_user),
     path('deleteUser/<int:user_id>', delete_user),
@@ -31,5 +31,6 @@ urlpatterns = [
     path('ticketInfo/', ticket_info, name='ticketInfo'),
     path('searchTicket/', search_ticket),
     path('bookTicket/<int:ticket_id>', book_ticket),
+    path('refundTicket/<int:ticket_id>', refund_ticket),
     path('myTicketInfo/', my_ticket_info, name='myTicketInfo'),
 ]

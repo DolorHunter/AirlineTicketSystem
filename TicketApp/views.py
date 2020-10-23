@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from .models import TicketItem, BookTicketItem
-from UserApp.models import UserItem
 
 
 def ticket_info(request):
@@ -50,22 +50,33 @@ def search_ticket(request):
     return render(request, 'TicketInfo.html', {'all_items': all_ticket_items})
 
 
+@login_required(login_url='login')
 def book_ticket(request, ticket_id):
-    if not request.user.is_authenticated():
-        return render(request, '/admin/')
-    else:
-        ticket_item = TicketItem.objects.get(ticket_id=ticket_id)
-        if request.method == 'POST':
-            if ticket_item.flight_remained_seats > 0:
-                ticket_item.flight_booked_seats += 1
-                ticket_item.flight_remained_seats -= 1
-                ticket_item.save()
-                book_ticket_item = BookTicketItem(user=request.user, ticket=ticket_item, book_status='1')
-                book_ticket_item.save()
-        return HttpResponseRedirect('/myTicket/')
+    ticket_item = TicketItem.objects.get(ticket_id=ticket_id)
+    if request.method == 'POST':
+        if ticket_item.flight_remained_seats > 0:
+            ticket_item.flight_booked_seats += 1
+            ticket_item.flight_remained_seats -= 1
+            ticket_item.save()
+            book_ticket_item = BookTicketItem(user=request.user, ticket=ticket_item, book_status='1')
+            book_ticket_item.save()
+    return HttpResponseRedirect('/myTicket/')
 
 
+@login_required(login_url='login')
+def refund_ticket(request, ticket_id):
+    ticket_item = TicketItem.objects.get(ticket_id=ticket_id)
+    if request.method == 'POST':
+        ticket_item.flight_booked_seats -= 1
+        ticket_item.flight_remained_seats += 1
+        ticket_item.save()
+        book_ticket_item = BookTicketItem.objects.get(user=request.user, ticket=ticket_item, book_status='1')
+        book_ticket_item.book_status = '3'
+        book_ticket_item.save()
+    return HttpResponseRedirect('/myTicket/')
+
+
+@login_required(login_url='login')
 def my_ticket_info(request, user_id):
-    book_tick_item = BookTicketItem.objects.get(user_id=user_id)
-    all_ticket_items = BookTicketItem.objects.all()
-    return render(request, 'MyTicketInfo.html', {'all_items': all_ticket_items})
+    book_tick_items = BookTicketItem.objects.get(user_id=user_id)
+    return render(request, 'MyTicketInfo.html', {'all_items': book_tick_items})
