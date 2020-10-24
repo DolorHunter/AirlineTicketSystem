@@ -33,4 +33,5 @@ urlpatterns = [
     path('bookTicket/<int:ticket_id>', book_ticket),
     path('refundTicket/<int:ticket_id>', refund_ticket),
     path('myTicketInfo/', my_ticket_info, name='myTicketInfo'),
+    path('searchMyTicket/', search_my_ticket),
 ]

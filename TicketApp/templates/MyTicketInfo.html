@@ -26,7 +26,6 @@
 </head>
 <body>
 <h1 align="center">我的票务</h1>
-
 <table style="width:100%">
     <tr>
         <th>航班名称</th>
@@ -44,7 +43,7 @@
         <th>退票</th>
     </tr>
     <tr>
-    <form action="/searchTicket/" method="post">{% csrf_token %}
+    <form action="/searchMyTicket/" method="post">{% csrf_token %}
         <label>
             <th><input name="search_flight_name" size="10"></th>
             <th><input name="search_flight_date" size="5"></th>
