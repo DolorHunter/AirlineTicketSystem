@@ -18,6 +18,6 @@ class TicketItem(models.Model):
 
 
 class BookTicketItem(models.Model):
-    user = models.ManyToManyField(UserItem)
-    ticket = models.ManyToManyField(TicketItem)
+    user_id = models.IntegerField()
+    ticket_id = models.ForeignKey(TicketItem, on_delete=models.CASCADE)
     book_status = models.TextField()

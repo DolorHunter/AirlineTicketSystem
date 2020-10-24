@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import TicketItem, BookTicketItem
+from django.contrib import messages
+import queue
 
 
 def ticket_info(request):
@@ -52,31 +54,37 @@ def search_ticket(request):
 
 @login_required(login_url='login')
 def book_ticket(request, ticket_id):
-    ticket_item = TicketItem.objects.get(ticket_id=ticket_id)
-    if request.method == 'POST':
-        if ticket_item.flight_remained_seats > 0:
-            ticket_item.flight_booked_seats += 1
-            ticket_item.flight_remained_seats -= 1
-            ticket_item.save()
-            book_ticket_item = BookTicketItem(user=request.user, ticket=ticket_item, book_status='1')
-            book_ticket_item.save()
-    return HttpResponseRedirect('/myTicket/')
+    ticket_item = TicketItem.objects.get(id=ticket_id)
+    book_ticket_item = BookTicketItem.objects.filter(user_id=request.user.id, book_status='1')
+    if ticket_item in book_ticket_item:
+        messages.error(request, '已经订阅本航班')
+    else:
+        if request.method == 'POST':
+            if ticket_item.flight_remained_seats > 0:
+                ticket_item.flight_booked_seats += 1
+                ticket_item.flight_remained_seats -= 1
+                ticket_item.save()
+                book_ticket_item = BookTicketItem(user_id=request.user.id, ticket_id=ticket_item, book_status='1')
+                book_ticket_item.save()
+        return HttpResponseRedirect('/myTicketInfo/')
 
 
 @login_required(login_url='login')
 def refund_ticket(request, ticket_id):
-    ticket_item = TicketItem.objects.get(ticket_id=ticket_id)
+    ticket_item = TicketItem.objects.get(id=ticket_id)
     if request.method == 'POST':
         ticket_item.flight_booked_seats -= 1
         ticket_item.flight_remained_seats += 1
         ticket_item.save()
-        book_ticket_item = BookTicketItem.objects.get(user=request.user, ticket=ticket_item, book_status='1')
+        book_ticket_item = BookTicketItem.objects.filter(user_id=request.user.id, ticket_id=ticket_item,
+                                                         book_status='1').first()
         book_ticket_item.book_status = '3'
         book_ticket_item.save()
-    return HttpResponseRedirect('/myTicket/')
+    return HttpResponseRedirect('/myTicketInfo/')
 
 
 @login_required(login_url='login')
-def my_ticket_info(request, user_id):
-    book_tick_items = BookTicketItem.objects.get(user_id=user_id)
-    return render(request, 'MyTicketInfo.html', {'all_items': book_tick_items})
+def my_ticket_info(request):
+    all_ticket_items = TicketItem.objects.filter(bookticketitem__user_id=request.user.id,
+                                                 bookticketitem__book_status='1')
+    return render(request, 'MyTicketInfo.html', {'all_items': all_ticket_items})
