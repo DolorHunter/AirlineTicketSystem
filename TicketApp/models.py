@@ -1,5 +1,4 @@
 from django.db import models
-from UserApp.models import UserItem
 
 
 class TicketItem(models.Model):
