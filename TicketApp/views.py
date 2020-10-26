@@ -80,8 +80,9 @@ def pay_ticket(request, ticket_id):
     if request.method == 'POST':
         book_ticket_item = BookTicketItem.objects.filter(user_id=request.user.id, ticket_id=ticket_item,
                                                          book_status='已订票').first()
-        book_ticket_item.book_status = '已付款'
-        book_ticket_item.save()
+        if book_ticket_item:
+            book_ticket_item.book_status = '已付款'
+            book_ticket_item.save()
     return HttpResponseRedirect('/myTicketInfo/')
 
 

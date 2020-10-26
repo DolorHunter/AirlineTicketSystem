@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from UserApp.views import *
 from TicketApp.views import *
 
@@ -37,3 +38,5 @@ urlpatterns = [
     path('myTicketInfo/', my_ticket_info, name='myTicketInfo'),
     path('searchMyTicket/', search_my_ticket),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
