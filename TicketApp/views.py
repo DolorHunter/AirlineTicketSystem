@@ -57,6 +57,14 @@ def search_ticket(request):
 
 
 @login_required(login_url='login')
+def pre_book_ticket(request, ticket_id):
+    ticket_item = TicketItem.objects.filter(id=ticket_id)
+    if request.method == 'POST':
+        return render(request, 'BookTicket.html', {'all_items': ticket_item})
+    return HttpResponseRedirect('/ticketInfo/')
+
+
+@login_required(login_url='login')
 def book_ticket(request, ticket_id):
     ticket_item = TicketItem.objects.get(id=ticket_id)
     book_ticket_item = BookTicketItem.objects.filter(user_id=request.user.id, book_status='已订票')
@@ -75,6 +83,27 @@ def book_ticket(request, ticket_id):
 
 
 @login_required(login_url='login')
+def checkin_ticket(request, ticket_id):
+    ticket_item = TicketItem.objects.filter(id=ticket_id, checkinitem__ticket_id=ticket_id).values(
+                                            'id', 'flight_name', 'flight_date', 'flight_capacity',
+                                            'flight_booked_seats', 'flight_remained_seats',
+                                            'flight_price', 'depart_city', 'arrive_city',
+                                            'depart_airport', 'arrive_airport', 'depart_time',
+                                            'arrive_time', 'checkinitem__checkin_windows')
+    if request.method == 'POST':
+        return render(request, 'CheckinTicket.html', {'all_items': ticket_item})
+    return HttpResponseRedirect('/myTicketInfo/')
+
+
+@login_required(login_url='login')
+def pre_pay_ticket(request, ticket_id):
+    ticket_item = TicketItem.objects.filter(id=ticket_id)
+    if request.method == 'POST':
+        return render(request, 'PayTicket.html', {'all_items': ticket_item})
+    return HttpResponseRedirect('/myTicketInfo/')
+
+
+@login_required(login_url='login')
 def pay_ticket(request, ticket_id):
     ticket_item = TicketItem.objects.get(id=ticket_id)
     if request.method == 'POST':
@@ -83,6 +112,14 @@ def pay_ticket(request, ticket_id):
         if book_ticket_item:
             book_ticket_item.book_status = '已付款'
             book_ticket_item.save()
+    return HttpResponseRedirect('/myTicketInfo/')
+
+
+@login_required(login_url='login')
+def pre_cancel_ticket(request, ticket_id):
+    ticket_item = TicketItem.objects.filter(id=ticket_id)
+    if request.method == 'POST':
+        return render(request, 'CancelTicket.html', {'all_items': ticket_item})
     return HttpResponseRedirect('/myTicketInfo/')
 
 

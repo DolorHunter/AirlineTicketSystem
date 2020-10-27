@@ -20,3 +20,8 @@ class BookTicketItem(models.Model):
     user_id = models.IntegerField()
     ticket_id = models.ForeignKey(TicketItem, on_delete=models.CASCADE)
     book_status = models.TextField()
+
+
+class CheckinItem(models.Model):
+    ticket_id = models.ForeignKey(TicketItem, on_delete=models.CASCADE)
+    checkin_windows = models.TextField()

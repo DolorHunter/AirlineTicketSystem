@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-{% include 'navbar.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>航班信息</title>
+    <title>取消订单</title>
     <style>
     body{
         margin: 0;
         padding: 0;
         height: 100%;
-        background: rgba(147, 204, 122, 0.56) !important;
+        background: rgba(204, 122, 122, 0.93) !important;
     }
     table {
         background-color: rgba(255,255,255,0.2);
@@ -25,7 +24,7 @@
     </style>
 </head>
 <body>
-<h1 align="center">航班信息</h1>
+<h1 align="center">取消订单</h1>
 <table style="width:100%">
     <tr>
         <th>航班名称</th>
@@ -40,26 +39,6 @@
         <th>到达机场</th>
         <th>出发时间</th>
         <th>到达时间</th>
-        <th>购买</th>
-    </tr>
-    <tr>
-    <form action="/searchTicket/" method="post">{% csrf_token %}
-        <label>
-            <th><input name="search_flight_name" size="10"></th>
-            <th><input name="search_flight_date" size="5"></th>
-            <th><input name="search_flight_capacity" size="3"></th>
-            <th><input name="search_flight_booked_seats" size="3"></th>
-            <th><input name="search_flight_remained_seats" size="3"></th>
-            <th><input name="search_flight_price" size="3"></th>
-            <th><input name="search_depart_city" size="3"></th>
-            <th><input name="search_arrive_city" size="3"></th>
-            <th><input name="search_depart_airport" size="10"></th>
-            <th><input name="search_arrive_airport" size="10"></th>
-            <th><input name="search_depart_time" size="3"></th>
-            <th><input name="search_arrive_time" size="3"></th>
-            <th colspan="1"><input type="submit" value="查找"/></th>
-        </label>
-    </form>
     </tr>
     {% for ticketInfo_item in all_items %}
     <tr>
@@ -75,11 +54,12 @@
         <th>{{ ticketInfo_item.arrive_airport }}</th>
         <th>{{ ticketInfo_item.depart_time }}</th>
         <th>{{ ticketInfo_item.arrive_time }}</th>
-        <form action="/preBookTicket/{{ticketInfo_item.id}}" method="post">{% csrf_token %}
-            <th><input type="submit" value="购买"></th>
-        </form>
     </tr>
+    <form action="/cancelTicket/{{ticketInfo_item.id}}" method="post">{% csrf_token %}
+        <p align="center"><input type="submit" value="确认取消"></p>
+    </form>
     {% endfor %}
 </table>
+<a style="color: #a94442">注: 取消订单将不退还已支付的费用.</a>
 </body>
 </html>

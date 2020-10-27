@@ -9,7 +9,7 @@
         margin: 0;
         padding: 0;
         height: 100%;
-        background: #7abecc !important;
+        background: rgba(38, 241, 153, 0.29) !important;
     }
     table {
         background-color: rgba(255,255,255,0.2);
@@ -41,6 +41,7 @@
         <th>出发时间</th>
         <th>到达时间</th>
         <th>票务状态</th>
+        <th>详情</th>
         <th>操作</th>
     </tr>
     <tr>
@@ -59,7 +60,7 @@
             <th><input name="search_depart_time" size="3"></th>
             <th><input name="search_arrive_time" size="3"></th>
             <th><input name="search_book_status" size="3"></th>
-            <th colspan="1"><input type="submit" value="查找"/></th>
+            <th colspan="2"><input type="submit" value="查找"/></th>
         </label>
     </form>
     </tr>
@@ -78,11 +79,14 @@
         <th>{{ myTicketInfo_item.depart_time }}</th>
         <th>{{ myTicketInfo_item.arrive_time }}</th>
         <th id="book_status">{{ myTicketInfo_item.bookticketitem__book_status }}</th>
+        <th><form action="/checkinTicket/{{myTicketInfo_item.id}}" method="post">{% csrf_token %}
+            <input type="submit" value="详情">
+        </form></th>
         <th>
-        <form action="/payTicket/{{myTicketInfo_item.id}}" method="post">{% csrf_token %}
+        <form action="/prePayTicket/{{myTicketInfo_item.id}}" method="post">{% csrf_token %}
             <input type="submit" value="支付">
         </form>
-        <form action="/cancelTicket/{{myTicketInfo_item.id}}" method="post">{% csrf_token %}
+        <form action="/preCancelTicket/{{myTicketInfo_item.id}}" method="post">{% csrf_token %}
             <input type="submit" value="取消">
         </form>
         </th>
