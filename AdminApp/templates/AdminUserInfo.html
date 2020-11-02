@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>用户信息</title>
+    <title>管理用户</title>
     <style>
     body{
         margin: 0;
@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<h1 align="center">用户信息</h1>
+<h1 align="center">管理用户</h1>
 
 <table style="width:100%">
     <tr>
@@ -35,7 +35,7 @@
         <th colspan="2"></th>
     </tr>
     <tr>
-    <form action="/searchUser/" method="post">{% csrf_token %}
+    <form action="/adminSearchUser/" method="post">{% csrf_token %}
         <label>
             <th><input name="search_username"></th>
             <th><input name="search_password"></th>
@@ -46,7 +46,7 @@
     </tr>
     {% for userInfo_item in all_items %}
     <tr>
-    <form action="/updateUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
+    <form action="/adminUpdateUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
         <label>
             <th><input name="update_username_{{userInfo_item.id}}" value="{{ userInfo_item.username }}"/></th>
             <th><input name="update_password_{{userInfo_item.id}}" value="{{ userInfo_item.password }}"/></th>
@@ -54,13 +54,13 @@
             <th><input type="submit" value="修改"></th>
         </label>
     </form>
-    <form action="/deleteUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
+    <form action="/adminDeleteUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
         <th><input type="submit" value="删除"></th>
     </form>
     </tr>
     {% endfor %}
     <tr>
-    <form action="/addUser/" method="post">{% csrf_token %}
+    <form action="/adminAddUser/" method="post">{% csrf_token %}
         <label>
             <th><input type="text" name="add_username"/></th>
             <th><input type="text" name="add_password"/></th>

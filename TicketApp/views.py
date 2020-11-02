@@ -77,7 +77,7 @@ def book_ticket(request, ticket_id):
                 ticket_item.flight_remained_seats -= 1
                 ticket_item.save()
                 book_ticket_item = BookTicketItem(user_id=request.user.id, ticket_id=ticket_item,
-                                                  book_status='已订票')
+                                                  book_status='已订票', seat_id=str(ticket_item.flight_booked_seats))
                 book_ticket_item.save()
         return HttpResponseRedirect('/myTicketInfo/')
 
@@ -89,7 +89,8 @@ def checkin_ticket(request, ticket_id):
                                             'flight_booked_seats', 'flight_remained_seats',
                                             'flight_price', 'depart_city', 'arrive_city',
                                             'depart_airport', 'arrive_airport', 'depart_time',
-                                            'arrive_time', 'checkinitem__checkin_windows')
+                                            'arrive_time', 'checkinitem__checkin_windows',
+                                            'bookticketitem__seat_id')
     if request.method == 'POST':
         return render(request, 'CheckinTicket.html', {'all_items': ticket_item})
     return HttpResponseRedirect('/myTicketInfo/')

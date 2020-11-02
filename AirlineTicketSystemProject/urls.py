@@ -18,6 +18,7 @@ from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from UserApp.views import *
 from TicketApp.views import *
+from AdminApp.views import *
 
 urlpatterns = [
     path('', index, name='index'),
@@ -25,11 +26,11 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login_page, name='login'),
     path('logout/', logout_user, name='logout'),
-    path('userInfo/', user_info),
-    path('addUser/', add_user),
-    path('deleteUser/<int:user_id>', delete_user),
-    path('updateUser/<int:user_id>', update_user),
-    path('searchUser/', search_user),
+    path('adminUserInfo/', admin_user_info, name='adminUserInfo'),
+    path('adminAddUser/', admin_add_user),
+    path('adminDeleteUser/<int:user_id>', admin_delete_user),
+    path('adminUpdateUser/<int:user_id>', admin_update_user),
+    path('adminSearchUser/', admin_search_user),
     path('ticketInfo/', ticket_info, name='ticketInfo'),
     path('searchTicket/', search_ticket),
     path('preBookTicket/<int:ticket_id>', pre_book_ticket),
@@ -41,6 +42,11 @@ urlpatterns = [
     path('cancelTicket/<int:ticket_id>', cancel_ticket),
     path('myTicketInfo/', my_ticket_info, name='myTicketInfo'),
     path('searchMyTicket/', search_my_ticket),
+    path('adminTicketInfo/', admin_ticket_info, name='adminTicketInfo'),
+    path('adminAddTicket/', admin_add_ticket),
+    path('adminDeleteTicket/<int:ticket_id>', admin_delete_ticket),
+    path('adminUpdateTicket/<int:ticket_id>', admin_update_ticket),
+    path('adminSearchTicket/', admin_search_ticket),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

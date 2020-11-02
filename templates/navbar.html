@@ -12,6 +12,16 @@
         <!-- Items -->
         <ul class="nav navbar-nav navbar-right">
             <li>
+                <a href="{% url 'adminTicketInfo' %}">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 管理航班
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'adminUserInfo' %}">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 管理用户
+                </a>
+            </li>
+            <li>
                 <a href="{% url 'ticketInfo' %}">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 航班信息
                 </a>

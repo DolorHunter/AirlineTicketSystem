@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% include 'navbar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理航班</title>
+    <style>
+    body{
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: rgba(147, 204, 122, 0.56) !important;
+    }
+    table {
+        background-color: rgba(255,255,255,0.2);
+    }
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+    </style>
+</head>
+<body>
+<h1 align="center">管理航班</h1>
+<table style="width:100%">
+    <tr>
+        <th>航班名称</th>
+        <th>航班日期</th>
+        <th>航班容量</th>
+        <th>已满容量</th>
+        <th>剩余容量</th>
+        <th>价格</th>
+        <th>出发城市</th>
+        <th>到达城市</th>
+        <th>出发机场</th>
+        <th>到达机场</th>
+        <th>出发时间</th>
+        <th>到达时间</th>
+        <th colspan="2"></th>
+    </tr>
+    <tr>
+    <form action="/adminSearchTicket/" method="post">{% csrf_token %}
+        <label>
+            <th><input name="search_flight_name" size="10"></th>
+            <th><input name="search_flight_date" size="5"></th>
+            <th><input name="search_flight_capacity" size="3"></th>
+            <th><input name="search_flight_booked_seats" size="3"></th>
+            <th><input name="search_flight_remained_seats" size="3"></th>
+            <th><input name="search_flight_price" size="3"></th>
+            <th><input name="search_depart_city" size="3"></th>
+            <th><input name="search_arrive_city" size="3"></th>
+            <th><input name="search_depart_airport" size="10"></th>
+            <th><input name="search_arrive_airport" size="10"></th>
+            <th><input name="search_depart_time" size="3"></th>
+            <th><input name="search_arrive_time" size="3"></th>
+            <th colspan="2"><input type="submit" value="查找"/></th>
+        </label>
+    </form>
+    </tr>
+    {% for ticketInfo_item in all_items %}
+    <tr>
+    <form action="/adminUpdateTicket/{{ ticketInfo_item.id }}" method="post">{% csrf_token %}
+        <label>
+            <th><input name="update_flight_name_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.flight_name }}" size="10"/></th>
+            <th><input name="update_flight_date_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.flight_date }}" size="5"/></th>
+            <th><input name="update_flight_capacity_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.flight_capacity }}" size="3"/></th>
+            <th><input name="update_flight_booked_seats_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.flight_booked_seats }}" size="3"/></th>
+            <th><input name="update_flight_remained_seats_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.flight_remained_seats }}" size="3"/></th>
+            <th><input name="update_flight_price_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.flight_price }}" size="3"/></th>
+            <th><input name="update_depart_city_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.depart_city }}" size="3"/></th>
+            <th><input name="update_arrive_city_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.arrive_city }}" size="3"/></th>
+            <th><input name="update_depart_airport_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.depart_airport }}" size="10"/></th>
+            <th><input name="update_arrive_airport_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.arrive_airport }}" size="10"/></th>
+            <th><input name="update_depart_time_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.depart_time }}" size="3"/></th>
+            <th><input name="update_arrive_time_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.arrive_time }}" size="3"/></th>
+            <th><input type="submit" value="修改"></th>
+        </label>
+    </form>
+    <form action="/adminDeleteTicket/{{ticketInfo_item.id}}" method="post">{% csrf_token %}
+        <th><input type="submit" value="删除"></th>
+    </form>
+    </tr>
+    {% endfor %}
+    <tr>
+    <form action="/adminAddTicket/" method="post">{% csrf_token %}
+        <label>
+            <th><input type="text" name="add_flight_name" size="10"/></th>
+            <th><input type="text" name="add_flight_date" size="5"/></th>
+            <th><input type="text" name="add_flight_capacity" size="3"/></th>
+            <th><input type="text" name="add_flight_booked_seats" size="3"/></th>
+            <th><input type="text" name="add_flight_remained_seats" size="3"/></th>
+            <th><input type="text" name="add_flight_price" size="3"/></th>
+            <th><input type="text" name="add_depart_city" size="3"/></th>
+            <th><input type="text" name="add_arrive_city" size="3"/></th>
+            <th><input type="text" name="add_depart_airport" size="10"/></th>
+            <th><input type="text" name="add_arrive_airport" size="10"/></th>
+            <th><input type="text" name="add_depart_time" size="3"/></th>
+            <th><input type="text" name="add_arrive_time" size="3"/></th>
+            <th colspan="2"><input type="submit" value="添加"></th>
+        </label>
+    </form>
+    </tr>
+</table>
+</body>
+</html>

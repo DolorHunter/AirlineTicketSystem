@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'AdminApp',
     'UserApp',
     'TicketApp',
 ]
@@ -60,6 +61,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'UserApp/templates'),
             os.path.join(BASE_DIR, 'TicketApp/templates'),
+            os.path.join(BASE_DIR, 'AdminApp/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {

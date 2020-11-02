@@ -40,6 +40,7 @@
         <th>出发时间</th>
         <th>到达时间</th>
         <th>取票窗口</th>
+        <th>座位号</th>
     </tr>
     {% for ticketInfo_item in all_items %}
     <tr>
@@ -56,6 +57,7 @@
         <th>{{ ticketInfo_item.depart_time }}</th>
         <th>{{ ticketInfo_item.arrive_time }}</th>
         <th>{{ ticketInfo_item.checkinitem__checkin_windows }}</th>
+        <th>{{ ticketInfo_item.bookticketitem__seat_id }}</th>
     </tr>
     {% endfor %}
 </table>
