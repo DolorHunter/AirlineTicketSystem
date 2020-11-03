@@ -9,7 +9,7 @@
         margin: 0;
         padding: 0;
         height: 100%;
-        background: #7abecc !important;
+        background: rgba(122, 190, 204, 0.58) !important;
     }
     table {
         background-color: rgba(255,255,255,0.2);
@@ -32,14 +32,20 @@
         <th>用户名</th>
         <th>密码</th>
         <th>邮箱</th>
+        <th>超级用户</th>
+        <th>员工</th>
+        <th>启用</th>
         <th colspan="2"></th>
     </tr>
     <tr>
     <form action="/adminSearchUser/" method="post">{% csrf_token %}
         <label>
-            <th><input name="search_username"></th>
-            <th><input name="search_password"></th>
-            <th><input name="search_email"></th>
+            <th><input name="search_username" size="15"></th>
+            <th><input name="search_password" size="15"></th>
+            <th><input name="search_email" size="15"></th>
+            <th><input name="search_superuser" size="5"></th>
+            <th><input name="search_staff" size="5"></th>
+            <th><input name="search_active" size="5"></th>
             <th colspan="2"><input type="submit" value="查找"/></th>
         </label>
     </form>
@@ -48,9 +54,12 @@
     <tr>
     <form action="/adminUpdateUser/{{userInfo_item.id}}" method="post">{% csrf_token %}
         <label>
-            <th><input name="update_username_{{userInfo_item.id}}" value="{{ userInfo_item.username }}"/></th>
-            <th><input name="update_password_{{userInfo_item.id}}" value="{{ userInfo_item.password }}"/></th>
-            <th><input name="update_email_{{userInfo_item.id}}" value="{{ userInfo_item.email }}"/></th>
+            <th><input name="update_username_{{userInfo_item.id}}" value="{{ userInfo_item.username }}" size="15"/></th>
+            <th><input name="update_password_{{userInfo_item.id}}" value="{{ userInfo_item.password }}" size="15"/></th>
+            <th><input name="update_email_{{userInfo_item.id}}" value="{{ userInfo_item.email }}" size="15"/></th>
+            <th><input name="update_superuser_{{userInfo_item.id}}" value="{{ userInfo_item.is_superuser }}" size="5"/></th>
+            <th><input name="update_staff_{{userInfo_item.id}}" value="{{ userInfo_item.is_staff }}" size="5"/></th>
+            <th><input name="update_active_{{userInfo_item.id}}" value="{{ userInfo_item.is_active }}" size="5"/></th>
             <th><input type="submit" value="修改"></th>
         </label>
     </form>
@@ -62,9 +71,12 @@
     <tr>
     <form action="/adminAddUser/" method="post">{% csrf_token %}
         <label>
-            <th><input type="text" name="add_username"/></th>
-            <th><input type="text" name="add_password"/></th>
-            <th><input type="text" name="add_email"/></th>
+            <th><input type="text" name="add_username" size="15"/></th>
+            <th><input type="text" name="add_password" size="15"/></th>
+            <th><input type="text" name="add_email" size="15"/></th>
+            <th><input type="text" name="add_superuser" size="5"/></th>
+            <th><input type="text" name="add_staff" size="5"/></th>
+            <th><input type="text" name="add_active" size="5"/></th>
             <th colspan="2"><input type="submit" value="添加"/></th>
         </label>
     </form>

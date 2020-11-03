@@ -40,6 +40,8 @@
         <th>到达机场</th>
         <th>出发时间</th>
         <th>到达时间</th>
+        <th>取票口</th>
+        <th>登机口</th>
         <th colspan="2"></th>
     </tr>
     <tr>
@@ -57,13 +59,15 @@
             <th><input name="search_arrive_airport" size="10"></th>
             <th><input name="search_depart_time" size="3"></th>
             <th><input name="search_arrive_time" size="3"></th>
+            <th><input name="search_checkin_windows" size="3"></th>
+            <th><input name="search_boarding_port" size="3"></th>
             <th colspan="2"><input type="submit" value="查找"/></th>
         </label>
     </form>
     </tr>
     {% for ticketInfo_item in all_items %}
     <tr>
-    <form action="/adminUpdateTicket/{{ ticketInfo_item.id }}" method="post">{% csrf_token %}
+    <form action="/adminUpdateTicket/{{ticketInfo_item.id}}" method="post">{% csrf_token %}
         <label>
             <th><input name="update_flight_name_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.flight_name }}" size="10"/></th>
             <th><input name="update_flight_date_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.flight_date }}" size="5"/></th>
@@ -77,6 +81,8 @@
             <th><input name="update_arrive_airport_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.arrive_airport }}" size="10"/></th>
             <th><input name="update_depart_time_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.depart_time }}" size="3"/></th>
             <th><input name="update_arrive_time_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.arrive_time }}" size="3"/></th>
+            <th><input name="update_checkin_windows_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.checkinitem__checkin_windows }}" size="3"/></th>
+            <th><input name="update_boarding_port_{{ ticketInfo_item.id }}" value="{{ ticketInfo_item.checkinitem__boarding_port }}" size="3"/></th>
             <th><input type="submit" value="修改"></th>
         </label>
     </form>
@@ -100,6 +106,8 @@
             <th><input type="text" name="add_arrive_airport" size="10"/></th>
             <th><input type="text" name="add_depart_time" size="3"/></th>
             <th><input type="text" name="add_arrive_time" size="3"/></th>
+            <th><input type="text" name="add_checkin_windows" size="3"/></th>
+            <th><input type="text" name="add_boarding_port" size="3"/></th>
             <th colspan="2"><input type="submit" value="添加"></th>
         </label>
     </form>

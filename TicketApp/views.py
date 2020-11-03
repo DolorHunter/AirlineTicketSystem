@@ -90,7 +90,7 @@ def checkin_ticket(request, ticket_id):
                                             'flight_price', 'depart_city', 'arrive_city',
                                             'depart_airport', 'arrive_airport', 'depart_time',
                                             'arrive_time', 'checkinitem__checkin_windows',
-                                            'bookticketitem__seat_id')
+                                            'checkinitem__boarding_port', 'bookticketitem__seat_id')
     if request.method == 'POST':
         return render(request, 'CheckinTicket.html', {'all_items': ticket_item})
     return HttpResponseRedirect('/myTicketInfo/')

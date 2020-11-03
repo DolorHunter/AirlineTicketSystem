@@ -26,3 +26,4 @@ class BookTicketItem(models.Model):
 class CheckinItem(models.Model):
     ticket_id = models.ForeignKey(TicketItem, on_delete=models.CASCADE)
     checkin_windows = models.TextField()
+    boarding_port = models.TextField()
